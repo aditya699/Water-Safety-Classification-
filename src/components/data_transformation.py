@@ -4,7 +4,8 @@ from dataclasses import dataclass
 import numpy as np 
 import pandas as pd
 from sklearn.compose import ColumnTransformer
-from sklearn.impute import SimpleImputer,FunctionTransformer
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import FunctionTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder,StandardScaler
 
@@ -30,7 +31,7 @@ class DataTransformation:
         try:
             numerical_columns = ["aluminium","ammonia","arsenic","barium","cadmium",
                                 "chloramine","chromium","copper","flouride","bacteria",
-                                "viruses","lead,nitrates","nitrites","mercury","perchlorate","radium","selenium",
+                                "viruses","lead","nitrates","nitrites","mercury","perchlorate","radium","selenium",
                                 "silver","uranium"]
             categorical_columns = ["is_safe"]
             num_pipeline= Pipeline(
@@ -83,7 +84,7 @@ class DataTransformation:
             target_column_name="is_safe"
             numerical_columns = ["aluminium","ammonia","arsenic","barium","cadmium",
                                 "chloramine","chromium","copper","flouride","bacteria",
-                                "viruses","lead,nitrates","nitrites","mercury","perchlorate","radium","selenium",
+                                "viruses","lead","nitrates","nitrites","mercury","perchlorate","radium","selenium",
                                 "silver","uranium"]
 
             input_feature_train_df=train_df.drop(columns=[target_column_name],axis=1)
