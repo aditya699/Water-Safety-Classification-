@@ -33,29 +33,18 @@ class DataTransformation:
                                 "chloramine","chromium","copper","flouride","bacteria",
                                 "viruses","lead","nitrates","nitrites","mercury","perchlorate","radium","selenium",
                                 "silver","uranium"]
-            categorical_columns = ["is_safe"]
             num_pipeline= Pipeline(
                 steps=[
             ("scaler",StandardScaler())
                 ]
             )
 
-            cat_pipeline=Pipeline(
-
-                steps=[
-                ("replace_bad_value",FunctionTransformer(lambda x: np.where(x == "#NUM!", np.nan, x))),
-                ("imputer",SimpleImputer(missing_values=np.nan,strategy="most_frequent"))
-                ]
-
-            )
-
-            logging.info(f"Categorical columns: {categorical_columns}")
+    
             logging.info(f"Numerical columns: {numerical_columns}")
 
             preprocessor=ColumnTransformer(
                 [
-                ("num_pipeline",num_pipeline,numerical_columns),
-                ("cat_pipelines",cat_pipeline,categorical_columns)
+                ("num_pipeline",num_pipeline,numerical_columns)
 
                 ]
 

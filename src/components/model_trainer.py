@@ -11,7 +11,7 @@ from src.utils import save_object
 
 @dataclass
 class ModelTrainerConfig:
-    trained_model_file_path=os.path.join("artifacts","model.pkl")
+    trained_model_file_path=os.path.join("artifacts","model")
 
 class ModelTrainer:
     def __init__(self):
@@ -20,10 +20,15 @@ class ModelTrainer:
 
     def initiate_model_trainer(self,train_array,test_array):
         try:
-            train_array=pd.DataFrame(train_array)
-            test_array=pd.DataFrame(test_array)
-            exp_name = setup(data = train_array,  target = 'is_safe',fix_imbalance=True,test_data=test_array)
+            X_train,y_train,X_test,y_test=(
+                train_array[:,:-1],
+                train_array[:,-1],
+                test_array[:,:-1],
+                test_array[:,-1]
+            )
+            exp_name = setup(data =X_train,  target = y_train,fix_imbalance=True,use_gpu=True)
             best_model = compare_models()
+            best_model = tune_model(best_model, choose_better = True)
             save_model(best_model,self.model_trainer_config.trained_model_file_path)
             logging.info("Model training Sucessfully")
 
