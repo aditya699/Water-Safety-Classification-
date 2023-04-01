@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'h20safe'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6378B664D874404EBB953AE198FB4B5C }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5F16B57531CC43DF87965FDC40ABD41E }}
