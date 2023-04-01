@@ -8,4 +8,6 @@ xgboost
 dill
 Flask
 pycaret
+pickle
+streamlit
 #-e .
