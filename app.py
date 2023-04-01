@@ -3,12 +3,13 @@ import streamlit as st
 import  joblib
 
 # Loading the pickle file
+
 model = joblib.load('artifacts/model.pkl')
 def main():
     # Streamlit App
     st.title("Water Safety Prediction App")
     st.image("https://cdn.pixabay.com/photo/2015/09/03/18/04/water-921067_960_720.jpg",width=700)
-    st.subheader("Please enter the following details to get the prediction")
+    st.subheader("Enter the following details to get the prediction")
 
     # Get input from the user
     aluminum = st.slider("Aluminum", 0.0,100.00)
@@ -32,20 +33,23 @@ def main():
     silver = st.slider("Silver", 0.0,100.00)
     uranium = st.slider("Uranium", 0.0,100.00)
 
-    # Create a predict button
-    predict_btn = st.button("Predict")
 
 # Create a function to predict whether the water is safe or not
-    if predict_btn:
-        Model=model
-        inputs = [aluminum, ammonia, arsenic, barium, cadmium, chloramine, chromium, copper, fluoride, bacteria, viruses, lead, nitrates, nitrites, mercury, perchlorate, radium, selenium, silver, uranium]
-        inputs = [float(i) for i in inputs]
-        prediction = Model.predict([inputs])
+    if st.button("Check if your water is safe or not", key='predict'):
+        try:
+            Model = model  #get_model()
+            prediction = Model.predict([[aluminum,ammonia,arsenic,barium,cadmium,chloramine,chromium,copper,fluoride,bacteria,viruses,lead,nitrates,nitrites,mercury,perchlorate,radium,selenium,silver,uranium]])
+            output =prediction
+            if output<0:
+                st.warning("Some error is there !!")
+            if output==0:
+                st.success("Your Water is Safe to drink")
+            else:
+                st.warning("Your Water is not Safe to drink")
+           
+        except:
+            st.warning("Opps!! Something went wrong\nTry again")
 
-        if prediction == 0:
-            st.success("The water is **safe**")
-        else:
-            st.error("The water is **not safe**")
 
 if __name__ == '__main__':
     main()
