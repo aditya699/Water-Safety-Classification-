@@ -7,7 +7,7 @@ import  joblib
 model = joblib.load('artifacts/model.pkl')
 def main():
     # Streamlit App
-    st.title("Water Safety Prediction App")
+    st.title("Water Safety Prediction Application")
     st.image("https://cdn.pixabay.com/photo/2015/09/03/18/04/water-921067_960_720.jpg",width=700)
     st.subheader("Enter the following details to get the prediction")
 
@@ -43,9 +43,9 @@ def main():
             if output<0:
                 st.warning("Some error is there !!")
             if output==0:
-                st.success("Your Water is not Safe to drink")
+                st.warning("Your Water is not Safe to drink")
             else:
-                st.warning("Your Water is Safe to drink")
+                st.success("Your Water is Safe to drink")
            
         except:
             st.warning("Opps!! Something went wrong\nTry again")
