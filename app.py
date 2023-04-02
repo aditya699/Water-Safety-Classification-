@@ -43,9 +43,9 @@ def main():
             if output<0:
                 st.warning("Some error is there !!")
             if output==0:
-                st.success("Your Water is Safe to drink")
+                st.success("Your Water is not Safe to drink")
             else:
-                st.warning("Your Water is not Safe to drink")
+                st.warning("Your Water is Safe to drink")
            
         except:
             st.warning("Opps!! Something went wrong\nTry again")
